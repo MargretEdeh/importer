@@ -1,0 +1,18 @@
+{
+  "ico satellite": [
+    "8810",
+    "8811"
+  ],
+  "ellipso satellite": [
+    "8812",
+    "8813"
+  ],
+  "iridium satellite": [
+    "8816",
+    "8817"
+  ],
+  "globalstar": [
+    "8818",
+    "8819"
+  ]
+}

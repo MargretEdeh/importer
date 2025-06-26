@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    container_name: ktor_postgres
+    ports:
+      - "5701:5432"
+    environment:
+      POSTGRES_DB: esdiacrates
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: saga@2500
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  ktor-app:
+    build:
+      context: .        # This means look for the Dockerfile in project root
+    container_name: ktor_app
+    ports:
+      - "8090:8081"
+    depends_on:
+      - db
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/esdiacrates
+      DB_USER: postgres
+      DB_PASSWORD: saga@2500
+    working_dir: /app
+    command: ["java", "-jar", "ktor-sample-all.jar"]
+
+volumes:
+  pgdata:
