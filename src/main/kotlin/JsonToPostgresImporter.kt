@@ -13,16 +13,16 @@ data class RateEntry(val prefix: String, val rate: Double)
 
 object CountryCarriers : Table("country_carriers") {
     val id = integer("id").autoIncrement()
-    val countryCode = varchar("country_code", length = 50)
-    val carrierName = varchar("carrier_name", length = 100)
-    val prefixes = varchar("prefixes", 50)
+    val countryCode = varchar("country_code", length = 200)
+    val carrierName = varchar("carrier_name", length = 200)
+    val prefixes = varchar("prefixes", 200)
     override val primaryKey = PrimaryKey(id)
 }
 
 object ProviderRates : Table("provider_rates") {
     val id = integer("id").autoIncrement()
-    val providerName = varchar("provider_name", 100)
-    val prefix = varchar("prefix", 20)
+    val providerName = varchar("provider_name", 200)
+    val prefix = varchar("prefix", 100)
     val rate = decimal("rate", 10, 5)
     override val primaryKey = PrimaryKey(id)
 }
@@ -31,7 +31,7 @@ object JsonToPostgresImporter {
     fun importData() {
         // Establish DB connection before doing anything
         Database.connect(
-            url = System.getenv("DB_URL") ?: "jdbc:postgresql://db:5432/esdiacrates",
+            url = System.getenv("DB_URL") ?: "jdbc:postgresql://localhost:5432/esdiacrates",
             driver = System.getenv("DB_DRIVER") ?: "org.postgresql.Driver",
             user = System.getenv("DB_USER") ?: "postgres",
             password = System.getenv("DB_PASSWORD") ?: "saga@2500"

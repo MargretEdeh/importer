@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: importer
+  namespace: dev
+  # Remove this:
+  # annotations:
+  #   service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: importer
+  template:
+    metadata:
+      labels:
+        app: importer
+    spec:
+      containers:
+        - name: importer
+          image: margretedeh/importer:latest
+          ports:
+            - containerPort: 8083
+          env:
+            - name: PORT
+              value: "8083"
+            - name: DB_URL
+              value: "jdbc:postgresql://esdiac-db-test.cpkx1qaixizr.us-west-2.rds.amazonaws.com:5432/esdiac_carrier?connectTimeout=5000&socketTimeout=30000"
+            - name: DB_DRIVER
+              value: "org.postgresql.Driver"
+            - name: DB_USER
+              value: "margretedeh"
+            - name: DB_PASSWORD
+              value: "mEhgk:9()weRtU"
